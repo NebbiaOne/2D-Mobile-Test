@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Toucher : MonoBehaviour
 {
-   
+   public Camera mainCam;
     void Start()
     {
         
@@ -15,15 +15,21 @@ public class Toucher : MonoBehaviour
         if (Input.touchCount > 0){
 
             Touch touch = Input.GetTouch(0);
-            Vector3 touchposition = Camera.main.ScreenToWorldPoint(touch.position);
-            touchposition.z = 0f;
+            Vector2 touchposition = mainCam.ScreenToWorldPoint(touch.position);
+            //touchposition.z = 0f;
             transform.position = touchposition;
             
-            Physics.Raycast(transform.position, Vector3.down, 10);
+            //Physics.Raycast(transform.position, Vector3.down, 10);
 
-           Debug.Log ("touching" + touch.position);
-           Debug.Log ("transform" + transform.position);
-           Debug.DrawRay(transform.position, Vector3.down, Color.cyan);
+            //Debug.Log ("touching" + touch.position);
+            //Debug.Log ("transform" + transform.position);
+          // Debug.DrawRay(transform.position, Vector3.down, Color.cyan);
         }  
+    }
+        private void OnTriggerEnter2D(Collider2D other) {
+    
+        Handheld.Vibrate();
+        Debug.Log ("Boom");
+        
     }
 }
